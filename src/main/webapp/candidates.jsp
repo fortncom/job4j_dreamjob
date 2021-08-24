@@ -1,8 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
-<%@ page import="ru.job4j.dream.store.Store" %>
-<%@ page import="ru.job4j.dream.model.Candidate" %>
-<%@ page import="java.util.Collection" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html lang="en">
 <head>
@@ -36,6 +33,7 @@
                     <thead>
                     <tr>
                         <th scope="col">Названия</th>
+                        <th scope="col">Фото</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -47,6 +45,20 @@
                             </a>
                             <c:out value="${can.name}"/>
                         </td>
+
+                        <td>
+                            <label>
+                            <img src="<c:url value='/download?name=${can.id}.jpg'/>" width="100px" height="100px"/>
+                            </label>
+
+                            <form action="<c:url value='/candidate/photoUpload.jsp?id=${can.id}'/>" method="post">
+                                <button type="submit" class="btn btn-primary">Add Photo</button>
+                            </form>
+
+                            <form action="<c:url value='/photoDelete?id=${can.id}'/>" method="post">
+                                <button type="submit" class="btn btn-primary">Delete Photo</button>
+                            </form>
+                        <td>
                     </tr>
                     </c:forEach>
                     </tbody>
