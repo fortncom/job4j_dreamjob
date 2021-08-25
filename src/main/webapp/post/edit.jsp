@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="ru.job4j.dream.store.PsqlStore" %>
 <%@ page import="ru.job4j.dream.model.Post" %>
 <!doctype html>
@@ -21,6 +22,20 @@
     <title>Работа мечты</title>
 </head>
 <body>
+<div class="container">
+    <ul class="nav">
+        <c:if test="${user != null}">
+            <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/logout.do"> <c:out value="${user.name}"/> | Выйти</a>
+            </li>
+        </c:if>
+        <c:if test="${user == null}">
+            <%
+                response.sendRedirect("/dreamjob/login.jsp");
+            %>
+        </c:if>
+    </ul>
+</div>
 <%
     String id = request.getParameter("id");
     Post post = new Post(0, "");
