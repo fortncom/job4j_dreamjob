@@ -38,7 +38,7 @@
                 <a class="nav-link" href="<%=request.getContextPath()%>/candidate/edit.jsp">Добавить кандидата</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/upload">Файлы</a>
+                <a class="nav-link" href="<%=request.getContextPath()%>/login.jsp">Войти</a>
             </li>
         </ul>
     </div>
