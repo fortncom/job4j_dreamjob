@@ -33,11 +33,6 @@
                 <a class="nav-link" href="<%=request.getContextPath()%>/logout.do"> <c:out value="${user.name}"/> | Выйти</a>
             </li>
         </c:if>
-        <c:if test="${user == null}">
-            <%
-                response.sendRedirect("/dreamjob/login.jsp");
-            %>
-        </c:if>
     </ul>
 </div>
 <%
