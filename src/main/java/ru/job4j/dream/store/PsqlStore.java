@@ -217,12 +217,12 @@ public class PsqlStore implements Store {
     private void update(User user) {
         try (Connection cn = pool.getConnection();
              PreparedStatement ps =  cn.prepareStatement(
-                     "update \"user\" set name=?, email=?, password=? where id=?;")
+                     "update \"user\" set name=?, password=? where email=?;")
         ) {
-            ps.setString(1, user.getName());
-            ps.setString(2, user.getEmail());
+            ps.setInt(1, user.getId());
+            ps.setString(2, user.getName());
             ps.setString(3, user.getPassword());
-            ps.setInt(4, user.getId());
+            ps.setString(4, user.getEmail());
             ps.executeUpdate();
         } catch (SQLException e) {
             LOG.error("Exception", e);
