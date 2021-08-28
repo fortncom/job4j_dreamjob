@@ -8,9 +8,9 @@ CREATE TABLE candidate (
   name TEXT
 );
 
-CREATE TABLE "user" (
-   id SERIAL,
+CREATE TABLE users (
+   id SERIAL PRIMARY KEY,
    name TEXT,
-   email TEXT PRIMARY KEY,
+   email TEXT UNIQUE,
    password TEXT
 );
