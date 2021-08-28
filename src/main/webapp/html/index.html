@@ -22,8 +22,26 @@
             }
             if (answer !== result) {
                 alert(result);
+                return false;
             }
-            return false;
+            return true;
+        }
+    </script>
+    <script>
+        function addRow() {
+            var n = 0;
+            $('#table tr').each(function() {
+                n = $(this).find("th").html();
+            });
+            if (validate()) {
+                $('#table tr:last').after(
+                    '<tr>'
+                    + '<th scope="row">' + ++n + '</th>'
+                    + '<td>' + $('#firstName1').val() +'</td>'
+                    + '<td>' + $('#lastName1').val() +'</td>'
+                    + '<td>' + $('#genderSelectionValidation').val() +'</td>' +
+                    '</tr>');
+            }
         }
     </script>
 </head>
@@ -64,7 +82,7 @@
     </div>
 </form>
 
-<table class="table">
+<table class="table" id="table">
     <caption>List of users</caption>
     <thead>
     <tr>
@@ -95,5 +113,10 @@
     </tr>
     </tbody>
 </table>
+<div class="form-group">
+    <div class="col-md-6 mb-6">
+        <button type="reset" class="btn btn-primary" onclick="addRow()">Add row</button>
+    </div>
+</div>
 </body>
 </html>
