@@ -1,12 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Bootstrap Example</title>
+    <title>Reg</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        function validate() {
+            const answer = "Please fill fields ";
+            let result = answer;
+            if ($('#firstName1').val() === '') {
+                result += "-First name ";
+            }
+            if ($('#lastName1').val() === '') {
+                result += "-Last name ";
+            }
+            if ($('#genderSelectionValidation').val() == null) {
+                result += "-Sex";
+            }
+            if (answer !== result) {
+                alert(result);
+            }
+            return false;
+        }
+    </script>
 </head>
 <body>
 
@@ -28,8 +47,8 @@
         </div>
 
         <div class="container-fluid" style="margin: 20px auto;">
-            <label for="validationServer0423">Sex</label>
-            <select class="custom-select is-invalid" id="validationServer0423" aria-describedby="validationServer04Feedback" required>
+            <label for="genderSelectionValidation">Sex</label>
+            <select class="custom-select is-invalid" id="genderSelectionValidation" aria-describedby="validationServer04Feedback" required>
                 <option selected disabled value="">Choose...</option>
                 <option>male</option>
                 <option>female</option>
@@ -39,7 +58,7 @@
 
         <div class="form-group">
             <div class="col-md-6 mb-6">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary" onclick="return validate();">Submit</button>
             </div>
         </div>
     </div>
