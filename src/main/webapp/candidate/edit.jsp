@@ -46,6 +46,7 @@
     function addCity() {
         $.ajax({
             type: 'POST',
+            crossDomain: true,
             url: 'http://localhost:8080/dreamjob/city.do',
             data: JSON.stringify({name: $('#city1').val()}),
             dataType: 'json'
@@ -59,7 +60,8 @@
     $(document).ready(function () {
         $.ajax({
             type: 'GET',
-            url: 'http://localhost:8080/dreamjob/city.do',
+            crossDomain: true,
+            url: '/dreamjob/city.do',
             dataType: 'json'
         }).done(function (data) {
             for (var city in data) {
