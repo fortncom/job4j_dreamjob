@@ -16,6 +16,9 @@
     <filter-name>AuthFilter</filter-name>
     <url-pattern>*.do</url-pattern>
   </filter-mapping>
+  <welcome-file-list>
+    <welcome-file>index</welcome-file>
+  </welcome-file-list>
   <servlet>
     <servlet-name>PostServlet</servlet-name>
     <servlet-class>ru.job4j.dream.servlet.PostServlet</servlet-class>
@@ -60,6 +63,10 @@
     <servlet-name>GreetingServlet</servlet-name>
     <servlet-class>ru.job4j.dream.servlet.GreetingServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>CityServlet</servlet-name>
+    <servlet-class>ru.job4j.dream.servlet.CityServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>PostServlet</servlet-name>
     <url-pattern>/posts.do</url-pattern>
@@ -70,7 +77,7 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>IndexServlet</servlet-name>
-    <url-pattern>/index.do</url-pattern>
+    <url-pattern>/index</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>DownloadServlet</servlet-name>
@@ -103,5 +110,9 @@
   <servlet-mapping>
     <servlet-name>GreetingServlet</servlet-name>
     <url-pattern>/greet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CityServlet</servlet-name>
+    <url-pattern>/city.do</url-pattern>
   </servlet-mapping>
 </web-app>

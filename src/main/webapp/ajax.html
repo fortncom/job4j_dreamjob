@@ -27,6 +27,7 @@
             data: JSON.stringify({name: $('#email').val()}),
             dataType: 'json'
         }).done(function(data) {
+            console.log(data);
                 $("#emailList li:last").append(`<li>${data.name}</li>`);
         }).fail(function(err){
             console.log(err);
@@ -38,9 +39,11 @@
             url: 'http://localhost:8080/dreamjob/greet',
             dataType: 'json'
         }).done(function (data) {
+            alert(data)
             for (var email of data) {
                 $('#emailList li:last').append(`<li>${email.name}</li>`)
             }
+            console.log(data);
         }).fail(function (err) {
             console.log(err);
         });

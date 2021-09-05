@@ -1,15 +1,20 @@
 package ru.job4j.dream.model;
 
+import java.sql.Timestamp;
 import java.util.Objects;
 
 public class Candidate {
 
     private int id;
     private String name;
+    private City city;
+    private Timestamp created;
 
-    public Candidate(int id, String name) {
+    public Candidate(int id, String name, City city, Timestamp created) {
         this.id = id;
         this.name = name;
+        this.city = city;
+        this.created = created;
     }
 
     public int getId() {
@@ -28,6 +33,22 @@ public class Candidate {
         this.name = name;
     }
 
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
+    }
+
+    public Timestamp getCreated() {
+        return created;
+    }
+
+    public void setCreated(Timestamp created) {
+        this.created = created;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -38,12 +59,13 @@ public class Candidate {
         }
         Candidate candidate = (Candidate) o;
         return id == candidate.id
-                && Objects.equals(name, candidate.name);
+                && Objects.equals(name, candidate.name)
+                && Objects.equals(city, candidate.city);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name);
+        return Objects.hash(id, name, city);
     }
 
     @Override
@@ -51,6 +73,8 @@ public class Candidate {
         return "Candidate{"
                 + "id=" + id
                 + ", name='" + name + '\''
+                + ", city=" + city
+                + ", created=" + created
                 + '}';
     }
 }

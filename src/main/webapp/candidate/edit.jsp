@@ -5,7 +5,6 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -21,10 +20,56 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
             integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
             crossorigin="anonymous"></script>
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <title>Работа мечты</title>
 </head>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    function validate() {
+        const answer = "Please ";
+        let result = answer;
+        if ($('#fieldName').val() === '') {
+            result += "-fill field Name ";
+        }
+        if ($('#citySelection').val() == null) {
+            result += "-Choose City";
+        }
+        if (answer !== result) {
+            alert(result);
+            return false;
+        }
+        return true;
+    }
+</script>
+<script>
+    function addCity() {
+        $.ajax({
+            type: 'POST',
+            url: 'http://localhost:8080/dreamjob/city.do',
+            data: JSON.stringify({name: $('#city1').val()}),
+            dataType: 'json'
+        }).done(function (data) {
+            $('#citySelection option:last').after('<option>' + data.name + '</option>')
+        }).fail(function (err) {
+            console.log(err);
+        });
+    }
+
+    $(document).ready(function () {
+        $.ajax({
+            type: 'GET',
+            url: 'http://localhost:8080/dreamjob/city.do',
+            dataType: 'json'
+        }).done(function (data) {
+            for (var city in data) {
+                $('#citySelection option:last').after('<option>' + data[city].name + '</option>')
+            }
+        }).fail(function (err) {
+            console.log(err);
+        });
+    });
+</script>
 <body>
 <div class="container">
     <ul class="nav">
@@ -37,7 +82,7 @@
 </div>
 <%
     String id = request.getParameter("id");
-    Candidate can = new Candidate(0, "");
+    Candidate can = new Candidate(0, "", null, null);
     if (id != null) {
         can = PsqlStore.instOf().findCanById(Integer.parseInt(id));
     }
@@ -56,13 +101,27 @@
                 <form action="<%=request.getContextPath()%>/candidates.do?id=<%=can.getId()%>" method="post">
                     <div class="form-group">
                         <label>Имя</label>
-                        <input type="text" class="form-control" name="name" value="<%=can.getName()%>">
+                        <input type="text" class="form-control" name="name" value="<%=can.getName()%>" id="fieldName">
                     </div>
-                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                    <div class="container-fluid" style="margin: 20px auto;">
+                        <label for="citySelection">Город</label>
+                        <select class="form-control" id="citySelection" name="city">
+                            <option selected disabled value="">Выберите город</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary" onclick="return validate();">Сохранить</button>
                 </form>
             </div>
         </div>
     </div>
+    <br>
+    <form>
+        <div class="form-group">
+            <label for="city1" style="font-weight: bold">Другой город</label>
+            <input type="text" class="form-control" id="city1" placeholder="Enter city">
+        </div>
+        <button type="button" class="btn btn-primary" onclick="addCity()">Save</button>
+    </form>
 </div>
 </body>
 </html>

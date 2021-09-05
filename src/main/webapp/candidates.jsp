@@ -1,5 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="ru_RU" scope="session" />
 <!doctype html>
 <html lang="en">
 <head>
@@ -55,8 +57,10 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th scope="col">Названия</th>
+                        <th scope="col">Название</th>
+                        <th scope="col">Город</th>
                         <th scope="col">Фото</th>
+                        <th scope="col">Дата публикации</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -68,7 +72,9 @@
                             </a>
                             <c:out value="${can.name}"/>
                         </td>
-
+                        <td>
+                            <c:out value="${can.city.name}"/>
+                        </td>
                         <td>
                             <label>
                             <img src="<c:url value='/download?name=${can.id}.jpg'/>" width="100px" height="100px"/>
@@ -81,6 +87,9 @@
                             <form action="<c:url value='/photoDelete?id=${can.id}'/>" method="post">
                                 <button type="submit" class="btn btn-primary">Delete Photo</button>
                             </form>
+                        <td>
+                            <fmt:formatDate value="${can.created}" dateStyle="long" />
+                        </td>
                         <td>
                     </tr>
                     </c:forEach>

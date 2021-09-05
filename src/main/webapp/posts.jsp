@@ -1,5 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="ru_RU" scope="session" />
 <!doctype html>
 <html lang="en">
 <head>
@@ -55,7 +57,8 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th scope="col">Названия</th>
+                        <th scope="col">Название</th>
+                        <th scope="col">Дата публикации</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -66,6 +69,9 @@
                                 <i class="fa fa-edit mr-3"></i>
                             </a>
                             <c:out value="${post.name}"/>
+                        </td>
+                        <td>
+                            <fmt:formatDate value="${post.created}" dateStyle="long" />
                         </td>
                     </tr>
                     </c:forEach>

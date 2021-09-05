@@ -1,7 +1,6 @@
 package ru.job4j.dream.model;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Post {
@@ -9,11 +8,12 @@ public class Post {
     private int id;
     private String name;
     private String description = "";
-    private final Timestamp created = Timestamp.valueOf(LocalDateTime.now());
+    private Timestamp created;
 
-    public Post(int id, String name) {
+    public Post(int id, String name, Timestamp created) {
         this.id = id;
         this.name = name;
+        this.created = created;
     }
 
     public int getId() {
@@ -24,12 +24,12 @@ public class Post {
         this.id = id;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -44,6 +44,10 @@ public class Post {
         return created;
     }
 
+    public void setCreated(Timestamp created) {
+        this.created = created;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -53,12 +57,14 @@ public class Post {
             return false;
         }
         Post post = (Post) o;
-        return id == post.id;
+        return id == post.id
+                && name.equals(post.name)
+                && Objects.equals(description, post.description);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(id, name, description);
     }
 
     @Override
