@@ -10,8 +10,10 @@ import ru.job4j.dream.model.User;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.sql.*;
-import java.time.LocalDateTime;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -74,9 +76,9 @@ public class PsqlStore implements Store {
         List<Candidate> candidates = new ArrayList<>();
         try (Connection cn = pool.getConnection();
              PreparedStatement ps =  cn.prepareStatement(
-                     "select c.id as id, c.name as name, c2.id as cityId,"
-                             + " c2.name as cityName, c.created as date \n"
-                         + "from candidate c left join city c2 on c.city_id=c2.id;")) {
+                     "select can.id as id, can.name as name, city.id as cityId,"
+                             + " city.name as cityName, can.created as date "
+                         + "from candidate can left join city on can.city_id=city.id;")) {
             try (ResultSet it = ps.executeQuery()) {
                 while (it.next()) {
                     candidates.add(new Candidate(it.getInt("id"), it.getString("name"),
@@ -318,9 +320,9 @@ public class PsqlStore implements Store {
         Candidate candidate = null;
         try (Connection cn = pool.getConnection();
              PreparedStatement ps =  cn.prepareStatement(
-                     "select c.id as id, c.name as name, c2.id as cityId,"
-                             + " c2.name as cityName, c.created as date \n"
-                     + "from candidate c left join city c2 on c.city_id=c2.id where c.id=?;")
+                     "select can.id as id, can.name as name, city.id as cityId,"
+                             + " city.name as cityName, can.created as date "
+                     + "from candidate can left join city on can.city_id=city.id where can.id=?;")
         ) {
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
@@ -402,9 +404,9 @@ public class PsqlStore implements Store {
         List<Candidate> candidates = new ArrayList<>();
         try (Connection cn = pool.getConnection();
              PreparedStatement ps =  cn.prepareStatement(
-                     "select c.id as id, c.name as name, c2.id as cityId, "
-                             + "c2.name as cityName, c.created as created "
-                             + "from candidate c left join city c2 on c.city_id=c2.id "
+                     "select can.id as id, can.name as name, city.id as cityId, "
+                             + "city.name as cityName, can.created as created "
+                             + "from candidate can left join city on can.city_id=city.id "
                              + "where created >= now() - cast(? as interval);")) {
             ps.setString(1, String.format("%s days", days));
             try (ResultSet rs = ps.executeQuery()) {

@@ -7,7 +7,9 @@ import ru.job4j.dream.model.User;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -125,6 +127,7 @@ public class MemStore implements Store {
         for (City value : cities.values()) {
             if (value.getName().equals(name)) {
                 city = value;
+                break;
             }
         }
         return city;
@@ -132,11 +135,25 @@ public class MemStore implements Store {
 
     @Override
     public Collection<Post> findPostsByDate(int days) {
-        return null;
+        List<Post> rsl = new ArrayList<>();
+        for (Post value : posts.values()) {
+            if (value.getCreated().getTime() >= Timestamp.valueOf(
+                    LocalDateTime.now().minusDays(1)).getTime()) {
+                rsl.add(value);
+            }
+        }
+        return rsl;
     }
 
     @Override
     public Collection<Candidate> findCandidatesByDate(int days) {
-        return null;
+        List<Candidate> rsl = new ArrayList<>();
+        for (Candidate value : candidates.values()) {
+            if (value.getCreated().getTime() >= Timestamp.valueOf(
+                    LocalDateTime.now().minusDays(1)).getTime()) {
+                rsl.add(value);
+            }
+        }
+        return rsl;
     }
 }
