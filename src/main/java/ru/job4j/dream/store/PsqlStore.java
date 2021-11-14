@@ -9,7 +9,7 @@ import ru.job4j.dream.model.Post;
 import ru.job4j.dream.model.User;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.InputStreamReader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,7 +26,9 @@ public class PsqlStore implements Store {
 
     private PsqlStore() {
         Properties cfg = new Properties();
-        try (BufferedReader io = new BufferedReader(new FileReader("db.properties"))) {
+        try (BufferedReader io = new BufferedReader(
+                new InputStreamReader(PsqlStore.class.getClassLoader()
+                        .getResourceAsStream("db.properties")))) {
             cfg.load(io);
         } catch (Exception e) {
             throw new IllegalStateException(e);
@@ -421,5 +423,19 @@ public class PsqlStore implements Store {
         }
         LOG.info(String.valueOf(candidates));
         return candidates;
+    }
+
+    @Override
+    public void resetTable(String tableName) {
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps =  cn.prepareStatement("DELETE FROM " + tableName);
+             PreparedStatement ps2 =  cn.prepareStatement(
+                     "ALTER TABLE " + tableName + " ALTER COLUMN ID RESTART WITH 1")
+        ) {
+            ps.executeUpdate();
+            ps2.executeUpdate();
+        } catch (SQLException e) {
+            LOG.error("Exception", e);
+        }
     }
 }

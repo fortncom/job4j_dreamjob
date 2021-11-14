@@ -36,4 +36,6 @@ public interface Store {
     Collection<Post> findPostsByDate(int days);
 
     Collection<Candidate> findCandidatesByDate(int days);
+
+    void resetTable(String tableName);
 }

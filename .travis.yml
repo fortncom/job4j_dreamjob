@@ -3,18 +3,9 @@ language: java
 jdk:
   - openjdk14
 
-sudo: false
-
 env:
   global:
     - CODECOV_TOKEN="2b702bbb-59e1-4a2e-a6c9-5e19f753d06a"
-
-services:
-  - postgresql
-
-before_script:
-  - psql -c 'create database travis_ci_test;' -U postgres
-
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)

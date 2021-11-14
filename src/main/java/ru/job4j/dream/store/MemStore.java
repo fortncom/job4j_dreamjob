@@ -156,4 +156,9 @@ public class MemStore implements Store {
         }
         return rsl;
     }
+
+    @Override
+    public void resetTable(String tableName) {
+        throw new UnsupportedOperationException();
+    }
 }
