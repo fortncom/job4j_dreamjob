@@ -1,6 +1,5 @@
 package ru.job4j.dream.store;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import ru.job4j.dream.model.Candidate;
@@ -13,8 +12,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
 
 public class PsqlStoreTest {
 
