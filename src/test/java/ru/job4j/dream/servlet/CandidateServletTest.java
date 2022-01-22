@@ -4,7 +4,6 @@ import org.hamcrest.core.Is;
 import org.junit.Test;
 import ru.job4j.dream.model.Candidate;
 import ru.job4j.dream.model.City;
-import ru.job4j.dream.store.MemStore;
 import ru.job4j.dream.store.PsqlStore;
 import ru.job4j.dream.store.Store;
 
@@ -12,8 +11,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Mockito.mock;

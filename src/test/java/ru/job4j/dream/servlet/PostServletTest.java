@@ -3,7 +3,6 @@ package ru.job4j.dream.servlet;
 import org.hamcrest.core.Is;
 import org.junit.Test;
 import ru.job4j.dream.model.Post;
-import ru.job4j.dream.store.MemStore;
 import ru.job4j.dream.store.PsqlStore;
 import ru.job4j.dream.store.Store;
 
